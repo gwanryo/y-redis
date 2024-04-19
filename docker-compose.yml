@@ -1,0 +1,43 @@
+services:
+  db:
+    image: postgres
+    volumes:
+    - ./.db:/var/lib/postgresql/data
+    environment:
+      - POSTGRES_DB=postgres
+      - POSTGRES_NAME=postgres
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+  redis:
+    image: redis
+    volumes:
+    - ./.redis:/data
+  auth:
+    build: .
+    command: /bin/sh -c 'cd demos/auth-express; npm i; npm start'
+    ports:
+    - "5173:5173"
+    env_file:
+    - .env
+  worker:
+    build: .
+    command: npm run start:worker
+    env_file:
+    - .env
+    depends_on:
+    - db
+    - redis
+  server:
+    build: .
+    command: npm run start:server
+    ports:
+    - "3002:3002"
+    env_file:
+    - .env
+    volumes:
+    - .:/app/
+    - "/app/node_modules"
+    depends_on:
+    - db
+    - redis
+    - auth

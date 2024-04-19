@@ -10,7 +10,7 @@ import * as promise from 'lib0/promise'
 import * as encoding from 'lib0/encoding'
 import * as Y from 'yjs'
 
-const appName = 'Auth-Server-Example'
+const appName = 'Auth-Server'
 const authPrivateKey = await ecdsa.importKeyJwk(json.parse(env.ensureConf('auth-private-key')))
 const port = 5173
 

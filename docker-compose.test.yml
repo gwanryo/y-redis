@@ -14,14 +14,14 @@ services:
     - ./.redis:/data
   auth:
     build: .
-    command: ["npm", "run", "start:auth"]
+    command: ["/bin/sh", "-c", "cd demos/auth-express; npm i; npm start"]
+    ports:
+    - "5173:5173"
     env_file:
     - .env
-    volumes:
-    - node_modules:/app/node_modules
   worker:
     build: .
-    command: ["npm", "run", "start:worker"]
+    command: ["wait-for", "db:5432", "--", "npm", "run", "start:worker"]
     env_file:
     - .env
     volumes:

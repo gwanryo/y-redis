@@ -14,6 +14,8 @@
     "debug:server": "node --env-file .env --inspect-brk ./bin/worker.js ./bin/server.js",
     "start:worker": "node --env-file .env ./bin/worker.js",
     "debug:worker": "node --env-file .env --inspect-brk ./bin/worker.js",
+    "start:auth": "node --env-file .env ./bin/auth-server.js",
+    "debug:auth": "node --env-file .env --inspect-brk ./bin/auth-server.js",
     "minio": "docker run -p 9000:9000 -p 9001:9001 quay.io/minio/minio server /data --console-address \":9001\"",
     "redis": "docker run -p 6379:6379 redis",
     "dist": "rollup -c && tsc",
